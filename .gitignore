@@ -38,6 +38,9 @@ pip-delete-this-directory.txt
 # Unit test / coverage reports
 htmlcov/
 .tox/
+
+# config.py file should NEVER be made public
+config.py
 .coverage
 .coverage.*
 .cache
