@@ -13,6 +13,8 @@ Hawking Bot is a bot for getting random quotes Dr. Hawking left us
 - Python 3.5+
 - [discord.py](https://github.com/Rapptz/discord.py)
 
-Alternatively, anyone is welcome to add my hosted version using the following OAuth2 URL
+## Alternatively
+
+Anyone is welcome to add my hosted version using the following OAuth2 URL
 
 - [Hawking Bot](https://discordapp.com/api/oauth2/authorize?client_id=423405700413259788&permissions=523328&scope=bot)
