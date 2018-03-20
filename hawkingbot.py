@@ -14,10 +14,16 @@ token = config.token						# the login token for the bot
 quotes = config.quotes						# dict of all the quotes and their source
 
 # Send a rich embeded message instead of a plain one
-async def emb_message(message, quote, source):
+async def emb_message_source(message, quote, source):
 	emb = (discord.Embed(description=quote, colour=0x5e7750))
 	emb.set_author(name="Dr. Stephen William Hawking, 1942-2018", icon_url=client.user.avatar_url)
 	emb.add_field(name='Source:', value=source, inline=False)
+	await client.send_message(message.channel, embed=emb )
+
+async def emb_message_link(message, embstr, link):
+	emb = (discord.Embed(description=embstr, colour=0x5e7750))
+	emb.set_author(name="Dr. Stephen William Hawking, 1942-2018", icon_url=client.user.avatar_url)
+	emb.add_field(name='Link:', value=link, inline=False)
 	await client.send_message(message.channel, embed=emb )
 	
 	
@@ -29,12 +35,18 @@ async def on_message(message):
 	# Hawking - Displays a random quote from The Great Dr. Hawking
 	if(message.content.startswith(cmdprefix + "hawking")):
 		quote, source = choice(list(quotes.items()))
-		await emb_message(message, quote, source)
+		await emb_message_source(message, quote, source)
 
 	# About - Displays a brief synopsis of who Dr. Hawking was, taken from wikipedia
 	if(message.content.startswith(cmdprefix +  "about")):
 		quote = 'Stephen William Hawking (8 January 1942 – 14 March 2018) was a British theoretical physicist, cosmologist, author and Director of Research at the Centre for Theoretical Cosmology within the University of Cambridge. His scientific works include a collaboration with Roger Penrose on gravitational singularity theorems in the framework of general relativity and the theoretical prediction that black holes emit radiation, often called Hawking radiation. Hawking was the first to set out a theory of cosmology explained by a union of the general theory of relativity and quantum mechanics. He was a vigorous supporter of the many-worlds interpretation of quantum mechanics.'
-		await emb_message(message, quote, 'Wikipedia')
-			
+		await emb_message_source(message, quote, 'Wikipedia')
+		
+	# Journals - 	Displays a link to 55 papers in Physical Review D and Physical Review Letters
+	#				Gathered together and made public by the American Physical Society 
+	if(message.content.startswith(cmdprefix +  "journals")):
+		embstr = '''To mark the passing of Stephen Hawking, the American Physical Society have gathered together and made free to read his 55 papers in the peer-reviewed, scientific journals Physical Review D and Physical Review Letters.'''
+		await emb_message_link(message, embstr, 'https://journals.aps.org/collections/stephen-hawking')
+		
 # Run the bot
 client.run(token)
